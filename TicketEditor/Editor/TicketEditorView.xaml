@@ -1,0 +1,122 @@
+﻿<Window x:Class="TicketEditor.TicketEditorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TicketEditor"
+        mc:Ignorable="d"
+        Title="TicketEditorView" Height="300" Width="500" SizeToContent="Height" ResizeMode="NoResize">
+
+    <Grid Name="TicketGrid" Background="WhiteSmoke">
+        <Menu IsMainMenu="True" Margin="0" Height="24" VerticalAlignment="Top" VerticalContentAlignment="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Command="{Binding New}" Click="menu_File">
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="_Save" Command="{Binding Save}" Click="menu_File">
+                </MenuItem>
+                <MenuItem Header="_Save As" Command="{Binding SaveAs}" Click="menu_File">
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="_Print" Command="{Binding Print}" Click="menu_File">
+                </MenuItem>
+                <Separator />
+                <Separator />
+                <MenuItem Header="_Close" Command="{Binding Close}" Click="menu_File">
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Name="LanguageMenu" Header="Language" Click="menu_SetCodePage">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Header" Value="{Binding Path=CpName}"/>
+
+
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+            </MenuItem>
+            <MenuItem Header="_Paper Width">
+                <MenuItem Header="_53 mm" Command="{Binding New}" Click="menu_Width" Name="Option53mm">
+                </MenuItem>
+                <MenuItem Header="_80 mm" Command="{Binding New}" Click="menu_Width" Name="Option80mm">
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <StackPanel Margin="35,107,36,33" Name="stackPanel" Orientation="Vertical" Background="White" HorizontalAlignment="Center" Width="210">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    
+                    <Setter Property="TextWrapping" Value="Wrap" />
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="Focusable" Value="False" />
+                    <Setter Property="Cursor" Value="Arrow" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Margin" Value="-12,0,0,-12" />
+
+                </Style>
+
+                <Style TargetType="{x:Type Separator}">
+                    <Setter Property="Margin" Value="0,0,0,0"/>
+                    <Setter Property="Visibility" Value="Hidden"/>
+
+                </Style>
+            </StackPanel.Resources>
+        </StackPanel>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="27" Margin="0,24,0,0" VerticalAlignment="Top" Width="345" Background="Transparent">
+            <ToggleButton x:Name="Bold" Click="menu_Style" Width="23" Height="20" VerticalAlignment="Center" Content="B" FontWeight="ExtraBold" FontSize="10.667" FontFamily="Times New Roman" Tag="0">
+            </ToggleButton>
+            <ToggleButton x:Name="Underline" Click="menu_Style"  Width="23" Height="20" VerticalAlignment="Center" FontWeight="ExtraBold" FontSize="10.667" FontFamily="Times New Roman" Margin="-10,0,0,0" Tag="1">
+                <ToggleButton.Content>
+                    <TextBlock>
+                        <Underline>U</Underline>
+                    </TextBlock>
+                </ToggleButton.Content>
+            </ToggleButton>
+            <ToggleButton x:Name="Double_Width" Click="menu_Style" Width="23" Height="20" VerticalAlignment="Center" Margin="-10,0,0,0" Tag="2">
+                <Image x:Name="doublewidth" Source="pack://Application:,,,/Resources/ArrowLR.gif" SnapsToDevicePixels="True"/>
+
+            </ToggleButton>
+            <ToggleButton x:Name="Double_Height" Click="menu_Style" Width="23" Height="20" VerticalAlignment="Center" Margin="-10,0,0,0" Tag="3">
+                <Image x:Name="doubleheight" Source="pack://Application:,,,/Resources/ArrowUD.gif" SnapsToDevicePixels="True"/>
+            </ToggleButton>
+            <Button x:Name="justifyLeft" Width="30" Height="20" VerticalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Background="Transparent" Click="justify_Click" Tag="0" BorderBrush="Gray" BorderThickness="1.0">
+                <Image x:Name="jLImg" Source="pack://Application:,,,/Resources/aleft.gif" SnapsToDevicePixels="True"/>
+            </Button>
+            <Button x:Name="justifyCenter" Width="30" Height="20" VerticalAlignment="Center" Margin="-15,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Background="Transparent" Click="justify_Click" Tag="1" BorderBrush="Gray" BorderThickness="1.0">
+                <Image x:Name="jCImg" Source="pack://Application:,,,/Resources/acenter.gif" SnapsToDevicePixels="True"/>
+            </Button>
+            <Button x:Name="justifyRight" Width="30" Height="20" VerticalAlignment="Center" Margin="-15,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Background="Transparent" Click="justify_Click" Tag="2" BorderBrush="Gray" BorderThickness="1.0">
+                <Image x:Name="jRImg" Source="pack://Application:,,,/Resources/aright.gif" SnapsToDevicePixels="True"/>
+            </Button>
+            <Separator Width="11" />
+            <Button x:Name="shiftUpButton" VerticalAlignment="Top" Width="31" Click="shiftUp_Click">
+                <Image x:Name="shiftup" Source="pack://Application:,,,/Resources/shiftup.gif" SnapsToDevicePixels="True"/>
+            </Button>
+            <Button x:Name="shiftDownButton" VerticalAlignment="Top" Width="31" Click="shiftDown_Click" Margin="-10,0,0,0">
+                <Image x:Name="shiftdown" Source="pack://Application:,,,/Resources/shiftdown.gif" SnapsToDevicePixels="True"/>
+            </Button>
+        </Menu>
+        <Menu x:Name="menu1" HorizontalAlignment="Left" Height="28" Margin="0,51,0,0" VerticalAlignment="Top" Width="345" Background="Transparent">
+            <ComboBox x:Name="comboBox" Width="80" SelectedIndex="0" Margin="0,0,-10,0">
+                <ComboBoxItem Content="Text">
+
+                </ComboBoxItem>
+                <ComboBoxItem Content="Queuenumber">
+
+                </ComboBoxItem>
+                <ComboBoxItem Content="Image">
+
+                </ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="addLine" Content="+" VerticalContentAlignment="Top" VerticalAlignment="Center" Width="23" Height="20" FontWeight="ExtraBold" FontSize="16" FontFamily="Arial Black" FontStretch="UltraExpanded" Click="menu_Add" Margin="0,1"/>
+            <Button x:Name="removeLine" Content="-" VerticalContentAlignment="Top" VerticalAlignment="Center" Width="23" Height="20" FontWeight="ExtraBold" FontSize="16" FontFamily="Arial Black" FontStretch="UltraExpanded" Click="removeLine_Click" Margin="-10,0,0,0"/>
+            <TextBox x:Name="sizeBox" Height="23" TextWrapping="Wrap" Width="25" Visibility="Visible" SelectionChanged="sizeBox_SelectionChanged"/>
+            <Label x:Name="spaceLabel" Content="Space:" VerticalAlignment="Top" Visibility="Visible" VerticalContentAlignment="Top" Padding="0,0,0,-5"  Margin="0,0,-10,0"/>
+            <TextBox x:Name="topBox" Height="23" TextWrapping="Wrap" Width="35" Visibility="Visible" TextChanged="space_Changed" Margin="0,0,-10,0"/>
+            <TextBox x:Name="bottomBox" Height="23" TextWrapping="Wrap" Width="35" Visibility="Visible" TextChanged="space_Changed"/>
+
+        </Menu>
+    </Grid>
+
+</Window>

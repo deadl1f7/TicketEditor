@@ -1,0 +1,46 @@
+﻿<Window x:Class="TicketEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TicketEditor"
+        mc:Ignorable="d" 
+        Title="MainWindow" Height="350" Width="330.287">
+    <Grid>
+        <ListView x:Name="listView" SelectionChanged="listView_SelectionChanged" Margin="0,22,0,0">
+            <ListView.ContextMenu>
+                <ContextMenu Name="ModifyTicket" StaysOpen="false" Background="WhiteSmoke">
+                    <ContextMenu.BitmapEffect>
+                        <BitmapEffectGroup/>
+                    </ContextMenu.BitmapEffect>
+                    <MenuItem Header="_New" Name="New" Click="new_ContextMenu"/>
+                    <MenuItem Header="_Print" Name="Print" Click="print_ContextMenu" />
+                    <MenuItem Header="_Edit" Name="Edit" Click="edit_ContextMenu" />
+                    <Separator />
+                    <MenuItem Header="_Delete" Name="Delete" Click="delete_ContextMenu" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Menu x:Name="menu"  IsMainMenu="True" Margin="0" Height="25" VerticalAlignment="Top"  >
+
+            <MenuItem Header="_File" >
+                <MenuItem Header="_New" Command="{Binding New}"  Name="new" Click="menu_File">
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="_Refresh" Command="{Binding Refresh}" Click="menu_File" Name="refresh"></MenuItem>
+                <Separator />
+                <MenuItem Header="_Close"  Command="{Binding Close}" Click="menu_File" Name="close">
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Printing" >
+                <MenuItem Header="_Devices" Command="{Binding Devices}"  Name="devices" Click="menu_Printing">
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+    </Grid>
+</Window>
